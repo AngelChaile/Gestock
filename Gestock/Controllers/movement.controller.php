@@ -22,8 +22,8 @@ class MovementController {
 
         if(!$movement) return;
 
-        require_once 'Views/includes/header.php';
+        //require_once 'Views/includes/header.php';
         require_once 'Views/sale/sale-detail.php';
-        require_once 'Views/includes/footer.php';
+        //require_once 'Views/includes/footer.php';
     }
 }

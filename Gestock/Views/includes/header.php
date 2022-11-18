@@ -47,7 +47,7 @@
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<?php include_once 'main.php'; ?>
-		<?php include_once "functions.php"; TiempoSession();?>
+		<?php include_once "functions.php"; //TiempoSession();?>
 		<?php //include_once "Controllers/functions.php"; ?>
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">

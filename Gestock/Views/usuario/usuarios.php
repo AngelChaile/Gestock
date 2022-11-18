@@ -2,12 +2,14 @@
 
 <div class="container-fluid">
 <div class="well well-sm text-right">
-    <a class="btn btn-primary" href="?c=user&a=Nuevo">Nuevo Usuario</a>
+    <a class="btn btn-primary" href="?c=user&a=Nuevo">Nuevo Usuarios</a>
 </div>
 <br>
 <?php echo isset($_SESSION['alert']) ? $_SESSION['alert'] : ''; unset($_SESSION['alert']); ?>
  <div class="table-responsive overflow-auto" style="height: 700px;">
+ <a href="reporte.html">Generar PDF</a>
     <table class="table table-hover table-striped">
+    
     <thead class="thead-dark">
         <tr>
             <th style="width:120px;">Usuario</th>
@@ -30,12 +32,12 @@
             <td><?php echo $r->email; ?></td>
             <td><?php echo $r->description; ?></td>
             <td><?php echo $r->status; ?></td>
+
+            
             <td>
                 <a class="btn btn-warning" data-toggle="tooltip" title="Editar"href="?c=user&a=Crud&Id_user=<?php echo $r->Id_user; ?>"><i class="fas fa-edit" ></i></a>
             </td>
-            <!--<td>
-                <a href="?c=user&a=Eliminar&Id_user=<?php echo $r->Id_user; ?>">Eliminar</a>
-            </td>-->
+           
             <td>  
                 <a href="?c=user&a=Eliminar&Id_user=<?php echo $r->Id_user; ?>" class="btn btn-secondary" data-toggle="tooltip" title="Cambiar Estado" ><i class="fas fa-trash" ></i></a>
             

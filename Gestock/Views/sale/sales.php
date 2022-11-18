@@ -47,7 +47,8 @@ $resultado = $controller->Listar();
                             <td>
                                 <a href="?c=movement&a=detail&movement=<?php echo $r->id_movement; ?>"
                                    class="btn btn-success" data-toggle="tooltip" title="Detalle">
-                                    <i class="fa fa-list"></i>
+                                   <p>PDF</p>
+                                   <i style="font-size:24px" class="fa">&#xf1c1;</i>
                                 </a>
                             </td>
                         </tr>

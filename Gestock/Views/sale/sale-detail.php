@@ -1,6 +1,83 @@
 <?php
-    //var_dump($movement);
+session_start();
+if (!isset($_SESSION['valido']))
+{
+	header('Location: ?c=user&a=Login');
+}
+
+ob_start();
+
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimientos</title>
+
+    <link rel="shortcut icon" href="Assets/img/logo.jpeg">
+
+	<!-- Custom styles for this template-->
+	<link href="Assets/css/styles.css" rel="stylesheet">
+	<link href="Assets/css/sb-admin-2.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="Assets/css/dataTables.bootstrap4.min.css">
+
+    <link href="Assets/css/ribbon.css" rel="stylesheet">
+    <link href="Assets/css/sale.css" rel="stylesheet">
+    <link href="Assets/css/fontawesome.min.css" rel="stylesheet">
+    <script src="Assets/js/producto.js"></script>
+
+    <style>
+    body {
+        overflow-x: hidden;
+        font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    }
+    .signature{
+        font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        color: #0099D5;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid transparent;
+        background: #0099D5;
+        color: #fff;
+    }
+    .font-weight-lighter{
+        font-weight: 300;
+        background: #0099D5;
+        color: #fff;
+    }
+    .inv{
+        background: #E6E4E7;
+    }
+    .my-3 {
+        margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
+    }
+    .my-5 {
+        margin-bottom: 3rem !important;
+        margin-top: 3rem !important;
+    }
+    .py-5 {
+        padding-bottom: 3rem !important;
+        padding-top: 3rem !important;
+    }
+    .px-3 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    .border-bottom{
+        border-bottom: 2px solid #000 !important;
+        /*width: 35%;*/
+        padding: 0px 0px 5px 0px;
+    }
+    </style>
+
+</head>
+<body>
 <div class="container-fluid">
 <!--<h2>Detalle de movimiento</h2> -->
   <div class="row">
@@ -10,7 +87,8 @@
                      <div class="col-lg-3">
                         <a class="sidebar-brand d-flex align-items-center justify-content-center">
                             <div class="sidebar-brand-icon rotate-n-15">
-                                <img src="Assets/img/logo.jpeg" class="img-thumbnail">
+                                <img class="img-thumbnail" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/Practicas_Examen_Final/Assets/img/logo.jpeg">
+                                
                             </div>
                             <div class="sidebar-brand-text mx-4"></div>
                         </a>
@@ -163,50 +241,25 @@
 
 </div>
 <!-- End of Main Content -->
+</body>
+</html>
 
-<style>
-    body {
-        overflow-x: hidden;
-        font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    }
-    .signature{
-        font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-        color: #0099D5;
-    }
+<?php
+$html=ob_get_clean();
+//echo $html;
 
-    .table thead th {
-        vertical-align: bottom;
-        border-bottom: 2px solid transparent;
-        background: #0099D5;
-        color: #fff;
-    }
-    .font-weight-lighter{
-        font-weight: 300;
-        background: #0099D5;
-        color: #fff;
-    }
-    .inv{
-        background: #E6E4E7;
-    }
-    .my-3 {
-        margin-bottom: 1rem !important;
-        margin-top: 1rem !important;
-    }
-    .my-5 {
-        margin-bottom: 3rem !important;
-        margin-top: 3rem !important;
-    }
-    .py-5 {
-        padding-bottom: 3rem !important;
-        padding-top: 3rem !important;
-    }
-    .px-3 {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
-    .border-bottom{
-        border-bottom: 2px solid #000 !important;
-        /*width: 35%;*/
-        padding: 0px 0px 5px 0px;
-    }
-</style>
+require_once 'Assets/libreria/dompdf/autoload.inc.php';
+use Dompdf\Dompdf;
+$dompdf = new Dompdf();
+
+$options = $dompdf->getOptions();
+$options->set(array('isRemoteEnabled' => true));
+$dompdf->setOptions($options);
+
+$dompdf->loadHtml($html);
+//$dompdf->setPaper('letter');
+$dompdf->setPaper('A4', 'landsacape');
+$dompdf->render();
+
+$dompdf->stream("archivo_.pdf", array("Attachment" => false));
+?>
