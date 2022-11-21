@@ -31,30 +31,43 @@ ob_start();
 
     <style>
     body {
+        overflow-x: hidden;
         font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     }
     #titulo{
         text-align: center;
     }
-    h2{
-        text-align: center;
-        background: gray;
-        color: #fff;
-    }
     .signature{
         font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
         color: #0099D5;
     }
+
     .table thead th {
         vertical-align: bottom;
         border-bottom: 2px solid transparent;
         background: #0099D5;
         color: #fff;
     }
+
+    .div-3{
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 16px;
+    }
+    .div-1{
+        /*background: yellow;*/
+    }
+    .div-2{
+       /* background: red;*/
+    }
+
     .font-weight-lighter{
         font-weight: 300;
         background: #0099D5;
         color: #fff;
+    }
+    .inv{
+        background: #E6E4E7;
     }
     .my-3 {
         margin-bottom: 2rem !important;
@@ -69,9 +82,14 @@ ob_start();
         padding-top: 3rem !important;
     }
     .px-3 {
-        padding-left: 3px !important;
-        padding-right: 20px !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
     }
+   /* .border-bottom{
+        border-bottom: 2px solid #000 !important;
+        /*width: 35%;*/
+       /* padding: 0px 0px 5px 0px;
+    }*/
     .cantidad{
         text-align:center;
     }
@@ -81,137 +99,36 @@ ob_start();
         right: 50%;
         margin-right: -100px;
     }
-    #lista1 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:18%;
-    }  
-    #email{
-        margin-left: 2.4%;
-    }
-    #lista2 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:35%;
-    }  
-    #lista3 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:25%;
-    }  
-    #lista4 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:19%;
-    }  
-    #lista5 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:24%;
-    }  
-    #lista6 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:26%;
-    }  
     </style>
+
 </head>
 <bodys>
-    <h1 id="titulo">Gestock</h1>                  
-    <h1 class="font-weight-lighter py-1 px-3">Movimiento</h1>
-<br/>
-    <ul id="lista1">
-             <li>
-                <b>Destinatario:</b> <?php echo ($movement->customer_name ?? ($movement->company_name ?? ''));?>
-            </li>
-    </ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 m-auto">
+            <div class="row">
+                <!--<img class="img-thumbnail" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/Practicas_Examen_Final/Assets/img/logo.jpeg">-->
+                <h1 id="titulo">Gestock</h1>                  
+                
+                <div>
+                    <h1 class="font-weight-lighter py-1 px-3">Movimiento</h1>
+                </div>
+       
 
-    <ul id="lista1">
-             <li>
-                <b>Cuil:</b> <?php echo ($movement->cu_cuit_cuil ?? ($movement->prv_cuit_cuil ?? ''));?>
-             </li>
-             <li>
-                <b>Domicilio:</b> <?php echo ($movement->cu_street ?? ($movement->prv_street ?? '')) . " " .
-                                ($movement->cu_address_number ?? ($movement->prv_number ?? ''));?>
-             </li>
-    </ul>
-
-    <ul id="lista1">
-             <li>
-                <b>Tel: </b><?php echo ($movement->cu_tel_number ?? ($movement->prv_tel_number ?? ''));?>
-             </li>
-             <li id="email">
-                <b>Email: </b><?php echo ($movement->email ?? ($movement->p_email ?? ''));?>
-             </li>
-    </ul>
-<br>
-<hr>
-<h2>Datos de la Empresa</h2>
-    <ul id="lista2">
-             <li>
-                Número:<span class="px-3"><?php echo $movement->ticket_number;?></span>
-             </li>
-             <li>
-                Fecha:            <span class="px-3"><?php
-                                try {
-                                    $date = new DateTime($movement->date);
-                                    echo $date->format('d-m-Y');
-                                } catch (Exception $e) {
-                                    echo "";
-                                }
-                                ?></span>
-             </li>
-    </ul>
-
-    <ul id="lista3">
-        <li>
-           Hora: <span class="px-3"><?php
-                           try {
-                               $date = new DateTime($movement->date);
-                               echo $date->format('H:i:s');
-                           } catch (Exception $e) {
-                               echo "";
-                           }
-                           ?></span>
-        </li>
-        <li>
-           Tipo: <span class="px-3"><?php echo $movement->m_description;?></span>
-        </li>
-    </ul>
-
-    <ul id="lista4">
-        <li>
-           Atendido por: <span class="px-3"><?php echo $movement->user_name;?></span>
-        </li>  
-        <li>
-           Razón Social: <span><?php echo $_SESSION['infoCompany']->company_name; ?></span>
-        </li>
-    </ul>
-
-    <ul id="lista5">
-        <li>
-            Cuit: <?php echo $_SESSION['infoCompany']->cuit; ?>
-        </li>
-        <li>
-            Dirección: <?php echo $_SESSION['infoCompany']->address; ?>
-        </li>
-    </ul>
-
-    <ul id="lista6">
-        <li>
-            Tel:<span> <?php echo $_SESSION['infoCompany']->tel_number; ?></span>
-        </li>
-        <li>
-            Email:<span> <?php echo $_SESSION['infoCompany']->email; ?></span>
-        </li>
-    </ul>
-
-
-
-
-
-            
-      <!--  <div class="div-3">
+            <div class="row my-3">
+                <div class="col-lg-4">
+                    <p class="mb-0">Destinatario</p>
+                    <h5 class="mb-0"><b><?php echo ($movement->customer_name ?? ($movement->company_name ?? ''));?></b></h5>
+                    <p class="mb-0"><?php echo ($movement->cu_cuit_cuil ?? ($movement->prv_cuit_cuil ?? ''));?></p>
+                    <p class="mb-0">
+                        <?php echo ($movement->cu_street ?? ($movement->prv_street ?? '')) . " " .
+                            ($movement->cu_address_number ?? ($movement->prv_number ?? ''));?>
+                    </p>
+                    <p class="mb-0"><?php echo ($movement->cu_tel_number ?? ($movement->prv_tel_number ?? ''));?></p>
+                    <p class="mb-0"><?php echo ($movement->email ?? ($movement->p_email ?? ''));?></p>
+                </div>
+            </div>
+        <div class="div-3">
                 <div class="div-1">
                     <table>
                         <tbody>
@@ -292,7 +209,7 @@ ob_start();
                         </tbody>
                     </table>
                 </div>
-        </div>-->
+        </div>
 
             <div class="row">
                 <div class="col-lg-12">
