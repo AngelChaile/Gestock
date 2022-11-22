@@ -17,112 +17,98 @@ ob_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movimientos</title>
 
-    <link rel="shortcut icon" href="Assets/img/logo.jpeg">
-
 	<!-- Custom styles for this template-->
 	<link href="Assets/css/styles.css" rel="stylesheet">
 	<link href="Assets/css/sb-admin-2.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="Assets/css/dataTables.bootstrap4.min.css">
 
-    <link href="Assets/css/ribbon.css" rel="stylesheet">
     <link href="Assets/css/sale.css" rel="stylesheet">
     <link href="Assets/css/fontawesome.min.css" rel="stylesheet">
     <script src="Assets/js/producto.js"></script>
 
     <style>
-    body {
-        font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    }
-    #titulo{
-        text-align: center;
-    }
-    h2{
-        text-align: center;
-        background: gray;
-        color: #fff;
-    }
-    .signature{
-        font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-        color: #0099D5;
-    }
-    .table thead th {
-        vertical-align: bottom;
-        border-bottom: 2px solid transparent;
-        background: #0099D5;
-        color: #fff;
-    }
-    .font-weight-lighter{
-        font-weight: 300;
-        background: #0099D5;
-        color: #fff;
-    }
-    .my-3 {
-        margin-bottom: 2rem !important;
-        margin-top: 1rem !important;
-    }
-    .my-5 {
-        margin-bottom: 3rem !important;
-        margin-top: 3rem !important;
-    }
-    .py-5 {
-        padding-bottom: 3rem !important;
-        padding-top: 3rem !important;
-    }
-    .px-3 {
-        padding-left: 3px !important;
-        padding-right: 20px !important;
-    }
-    .cantidad{
-        text-align:center;
-    }
-    .text-muted{
-        position: absolute;
-        bottom: 0;
-        right: 50%;
-        margin-right: -100px;
-    }
-    #lista1 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:18%;
-    }  
-    #email{
-        margin-left: 2.4%;
-    }
-    #lista2 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:35%;
-    }  
-    #lista3 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:25%;
-    }  
-    #lista4 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:19%;
-    }  
-    #lista5 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:24%;
-    }  
-    #lista6 li {
-         display:inline;
-         padding-left:1px;
-         padding-right:26%;
-    }  
-    .celda{
-        padding-left:10px;
-        padding-right:25px;
-    }
+        body {
+            font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        }
+        #titulo{
+            text-align: center;
+        }
+        h2{
+            text-align: center;
+            background: gray;
+            color: #fff;
+        }
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid transparent;
+            background: #0099D5;
+            color: #fff;
+        }
+        .font-weight-lighter{
+            font-weight: 300;
+            background: #0099D5;
+            color: #fff;
+        }
+        .px-3 {
+            padding-left: 3px !important;
+            padding-right: 20px !important;
+        }
+        .cantidad{
+            text-align:center;
+        }
+        .text-muted{
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            margin-right: -100px;
+        }
+        #lista1 li {
+             display:inline;
+             padding-left:1px;
+             padding-right:18%;
+        }  
+        #email{
+            margin-left: 2.4%;
+        }
+        #lista2 li {
+             display:inline;
+             padding-left:1px;
+             padding-right:35%;
+        }  
+        #lista3 li {
+             display:inline;
+             padding-left:1px;
+             padding-right:25%;
+        }  
+        #lista4 li {
+             display:inline;
+             padding-left:1px;
+             padding-right:19%;
+        }  
+        #lista5 li {
+             display:inline;
+             padding-left:1px;
+             padding-right:24%;
+        }  
+        #lista6 li {
+             display:inline;
+             padding-left:1px;
+             padding-right:26%;
+        }  
+        #nro{
+            background: #3989c6;
+            color: white !important;
+            text-align: center;
+        }
+        .celda{
+            padding-left:10px;
+            padding-right:25px;
+        }
     </style>
 </head>
 <bodys>
     <h1 id="titulo">Gestock</h1>                  
-    <h1 class="font-weight-lighter py-1 px-3">Movimiento</h1>
+    <h1 class="font-weight-lighter px-3">Movimiento</h1>
 <br/>
     <ul id="lista1">
         <li>
@@ -209,51 +195,37 @@ ob_start();
             Email:<span> <?php echo $_SESSION['infoCompany']->email; ?></span>
         </li>
     </ul>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <table border=1 class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th class="celda">Nro</th>
-                            <th class="celda">Descripción</th>
-                            <th class="celda">Código</th>
-                            <th class="celda">Cantidad</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $index = 0;
-                        $products = (new Movement())->FindMovementProductsById($movement->id_movement);
-                        foreach ($products as $prd) { ;
-                            $index += 1;?>
-                        <tr>
-                            <td style="background: #3989c6; color: white !important;"><?php echo $index ?></td>
-                            <td class="fila" class="celda">
-                                <b><?php echo $prd->brand; ?></b>
-                                <p>
-                                    <?php echo $prd->description; ?>
-                                </p>
-                            </td>
-                            <td class="celda"><br><?php echo $prd->barcode; ?></td>
-                            <td class="cantidad"><br><?php echo $prd->quantity; ?></td>
-                        </tr>
-                        <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-        </div>
-
-    </div>
-  </div>
-
-
-</div>
-<!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->
-<br><br>
+    <br>
+    <table border=1 class="table table-striped">
+        <thead>
+        <tr>
+            <th class="celda">Nro</th>
+            <th class="celda">Descripción</th>
+            <th class="celda">Código</th>
+            <th class="celda">Cantidad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $index = 0;
+        $products = (new Movement())->FindMovementProductsById($movement->id_movement);
+        foreach ($products as $prd) { ;
+            $index += 1;?>
+        <tr>
+            <td id="nro"><?php echo $index ?></td>
+            <td class="fila" class="celda">
+                <b><?php echo $prd->brand; ?></b>
+                <p>
+                    <?php echo $prd->description; ?>
+                </p>
+            </td>
+            <td class="celda"><br><?php echo $prd->barcode; ?></td>
+            <td class="cantidad"><br><?php echo $prd->quantity; ?></td>
+        </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <br><br>
     <div class="text-muted">Copyright &copy; Alumnos isft177</div>
 
 </body>

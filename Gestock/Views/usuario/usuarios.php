@@ -7,7 +7,6 @@
 <br>
 <?php echo isset($_SESSION['alert']) ? $_SESSION['alert'] : ''; unset($_SESSION['alert']); ?>
  <div class="table-responsive overflow-auto" style="height: 700px;">
- <a href="reporte.html">Generar PDF</a>
     <table class="table table-hover table-striped">
     
     <thead class="thead-dark">
