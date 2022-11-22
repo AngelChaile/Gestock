@@ -114,6 +114,10 @@ ob_start();
          padding-left:1px;
          padding-right:26%;
     }  
+    .celda{
+        padding-left:10px;
+        padding-right:25px;
+    }
     </style>
 </head>
 <bodys>
@@ -121,58 +125,58 @@ ob_start();
     <h1 class="font-weight-lighter py-1 px-3">Movimiento</h1>
 <br/>
     <ul id="lista1">
-             <li>
-                <b>Destinatario:</b> <?php echo ($movement->customer_name ?? ($movement->company_name ?? ''));?>
-            </li>
+        <li>
+            <b>Destinatario:</b> <?php echo ($movement->customer_name ?? ($movement->company_name ?? ''));?>
+        </li>
     </ul>
 
     <ul id="lista1">
-             <li>
-                <b>Cuil:</b> <?php echo ($movement->cu_cuit_cuil ?? ($movement->prv_cuit_cuil ?? ''));?>
-             </li>
-             <li>
-                <b>Domicilio:</b> <?php echo ($movement->cu_street ?? ($movement->prv_street ?? '')) . " " .
-                                ($movement->cu_address_number ?? ($movement->prv_number ?? ''));?>
-             </li>
+        <li>
+           <b>Cuil:</b> <?php echo ($movement->cu_cuit_cuil ?? ($movement->prv_cuit_cuil ?? ''));?>
+        </li>
+        <li>
+           <b>Domicilio:</b> <?php echo ($movement->cu_street ?? ($movement->prv_street ?? '')) . " " .
+                           ($movement->cu_address_number ?? ($movement->prv_number ?? ''));?>
+        </li>
     </ul>
 
     <ul id="lista1">
-             <li>
-                <b>Tel: </b><?php echo ($movement->cu_tel_number ?? ($movement->prv_tel_number ?? ''));?>
-             </li>
-             <li id="email">
-                <b>Email: </b><?php echo ($movement->email ?? ($movement->p_email ?? ''));?>
-             </li>
+        <li>
+           <b>Tel: </b><?php echo ($movement->cu_tel_number ?? ($movement->prv_tel_number ?? ''));?>
+        </li>
+        <li id="email">
+           <b>Email: </b><?php echo ($movement->email ?? ($movement->p_email ?? ''));?>
+        </li>
     </ul>
 <br>
 <hr>
 <h2>Datos de la Empresa</h2>
     <ul id="lista2">
-             <li>
-                Número:<span class="px-3"><?php echo $movement->ticket_number;?></span>
-             </li>
-             <li>
-                Fecha:            <span class="px-3"><?php
-                                try {
-                                    $date = new DateTime($movement->date);
-                                    echo $date->format('d-m-Y');
-                                } catch (Exception $e) {
-                                    echo "";
-                                }
-                                ?></span>
-             </li>
+        <li>
+           Número:<span class="px-3"><?php echo $movement->ticket_number;?></span>
+        </li>
+        <li>
+           Fecha: <span class="px-3"><?php
+                   try {
+                       $date = new DateTime($movement->date);
+                       echo $date->format('d-m-Y');
+                   } catch (Exception $e) {
+                       echo "";
+                   }
+                   ?></span>
+        </li>
     </ul>
 
     <ul id="lista3">
         <li>
            Hora: <span class="px-3"><?php
-                           try {
-                               $date = new DateTime($movement->date);
-                               echo $date->format('H:i:s');
-                           } catch (Exception $e) {
-                               echo "";
-                           }
-                           ?></span>
+                    try {
+                        $date = new DateTime($movement->date);
+                        echo $date->format('H:i:s');
+                    } catch (Exception $e) {
+                        echo "";
+                    }
+                    ?></span>
         </li>
         <li>
            Tipo: <span class="px-3"><?php echo $movement->m_description;?></span>
@@ -206,103 +210,15 @@ ob_start();
         </li>
     </ul>
 
-
-
-
-
-            
-      <!--  <div class="div-3">
-                <div class="div-1">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>Número</td>
-                            <td class="px-3">:</td>
-                            <td class="text-left"><?php echo $movement->ticket_number;?></td>
-                        </tr>
-                        <tr>
-                            <td>Fecha</td>
-                            <td class="px-3">:</td>
-                            <td><?php
-                                try {
-                                    $date = new DateTime($movement->date);
-                                    echo $date->format('d-m-Y');
-                                } catch (Exception $e) {
-                                    echo "";
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Hora</td>
-                            <td class="px-3">:</td>
-                            <td>
-                                <?php
-                                try {
-                                    $date = new DateTime($movement->date);
-                                    echo $date->format('H:i:s');
-                                } catch (Exception $e) {
-                                    echo "";
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Tipo</td>
-                            <td class="px-3">:</td>
-                            <td><?php echo $movement->m_description;?></td>
-                        </tr>
-                        <tr>
-                            <td>Atendido por</td>
-                            <td class="px-3">:</td>
-                            <td><?php echo $movement->user_name;?></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="div-2">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Razón Social</td>
-                                <td class="px-3">:</td>
-                                <td><?php echo $_SESSION['infoCompany']->company_name; ?></td>
-                            </tr>
-                            <tr>
-                                <td>CUIT</td>
-                                <td class="px-3">:</td>
-                                <td><?php echo $_SESSION['infoCompany']->cuit; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Dirección</td>
-                                <td class="px-3">:</td>
-                                <td><?php echo $_SESSION['infoCompany']->address; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Teléfono</td>
-                                <td class="px-3">:</td>
-                                <td><?php echo $_SESSION['infoCompany']->tel_number; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td class="px-3">:</td>
-                                <td><?php echo $_SESSION['infoCompany']->email; ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-        </div>-->
-
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="table table-striped">
+                    <table border=1 class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">Nro</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Código</th>
-                            <th scope="col">Cantidad</th>
+                            <th class="celda">Nro</th>
+                            <th class="celda">Descripción</th>
+                            <th class="celda">Código</th>
+                            <th class="celda">Cantidad</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -313,14 +229,14 @@ ob_start();
                             $index += 1;?>
                         <tr>
                             <td style="background: #3989c6; color: white !important;"><?php echo $index ?></td>
-                            <td>
+                            <td class="fila" class="celda">
                                 <b><?php echo $prd->brand; ?></b>
                                 <p>
                                     <?php echo $prd->description; ?>
                                 </p>
                             </td>
-                            <td><?php echo $prd->barcode; ?></td>
-                            <td class="cantidad"><?php echo $prd->quantity; ?></td>
+                            <td class="celda"><br><?php echo $prd->barcode; ?></td>
+                            <td class="cantidad"><br><?php echo $prd->quantity; ?></td>
                         </tr>
                         <?php } ?>
                         </tbody>
