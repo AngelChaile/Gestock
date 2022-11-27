@@ -860,3 +860,15 @@ $(document).ready(function () {
   });
   $('.dataTables_length').addClass('bs-select');
 });
+
+function ShowMessage($message){
+new Swal("", $message,
+            undefined, "", "success", undefined, undefined,
+            undefined, undefined, "Footer", true, true /*toast*/, "body", undefined,
+            undefined/*ancho*/, undefined, undefined, undefined, 'center', false, undefined,
+            undefined, false, true, false, true, true, true, false, true /*confirm BTN*/,
+            false /* cancel BTN*/, 'Aceptar', 'Cancelar', undefined, undefined, undefined,
+            '','','',true,false,true,true,false,false,false,'','','',false,false,true,
+            undefined,
+            undefined,false);
+}

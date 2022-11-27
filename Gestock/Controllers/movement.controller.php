@@ -26,4 +26,18 @@ class MovementController {
         require_once 'Views/sale/sale-detail.php';
         require_once 'Views/includes/footer.php';
     }
+
+    public function FormPDF(){
+        //$_SESSION['Errormessege'] = $pdf_enviar;
+        $movement = $this->model->FindById($_REQUEST["movement"]);
+        if(!$movement) return;
+
+        require_once 'Views/includes/header.php';
+        require_once 'Views/sale/form-pdf.php';
+        require_once 'Views/includes/footer.php';
+    }
+
+    public function EnviarPDF(){
+        $this->model->EnviarOne();
+    }
 }

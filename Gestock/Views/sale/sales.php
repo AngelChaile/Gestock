@@ -19,8 +19,9 @@ $resultado = $controller->Listar();
                 <th class="col-lg-2">Usuario</th>
                 <th class="col-lg-2">Destinatario</th>
                 <th class="col-lg-1">Tipo Movimiento</th>
-                <th class="col-lg-1">Cant. Productos</th>
+                <th class="col-lg-1">Cantidad</th>
                 <th class="col-lg-3">Fecha</th>
+                <th class="col-lg-1"></th>
                 <th class="col-lg-1"></th>
             </tr>
         </thead>
@@ -49,6 +50,12 @@ $resultado = $controller->Listar();
                                    class="btn btn-success" data-toggle="tooltip" title="Detalle">
                                    <p>PDF</p>
                                    <i style="font-size:24px" class="fa">&#xf1c1;</i>
+                                </a>
+                            </td>
+                            <td>
+                            <a href="?c=movement&a=FormPDF&movement=<?php echo $r->id_movement; ?>"
+                                   class="btn btn-success" data-toggle="tooltip" title="Detalle">
+                                   <p>enviar</p>
                                 </a>
                             </td>
                         </tr>

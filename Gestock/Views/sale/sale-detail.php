@@ -248,5 +248,9 @@ $dompdf->setPaper('letter');
 //$dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 
-$dompdf->stream("archivo_.pdf", array("Attachment" => false));
+//$pdf_enviar = $dompdf->outputHtml();
+
+$dompdf->stream("movimiento_$movement->ticket_number.pdf", array("Attachment" => true));
+
+
 ?>
