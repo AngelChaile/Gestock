@@ -3,14 +3,14 @@
   <div class="row">
     <div class="col-lg-6 m-auto">
       <form name="formulario" id="formulario" action="?c=movement&a=EnviarPDF" method="post" enctype="multipart/form-data">
-        <!--<?php /*echo isset($alert) ? $alert : '';*/ ?>
-        <input type="hidden" name="id" value="<?php /*echo $pvd->id_movement; */?>"-->
+        <?php echo isset($alert) ? $alert : ''; ?>
+        <input type="hidden" name="id" value="<?php echo $pvd->id_movement; ?>">
         <div class="form-group">
           <label for="nombre">Nombre</label>
-          <input type="text"  class="form-control" name="nombre" value="<?php echo $movement->customer_name; ?>">
+          <input type="text"  class="form-control" name="nombre" value="<?php echo ($movement->customer_name ?? ($movement->company_name ?? ''));?>">
           <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" name="email" value="<?php echo $movement->email; ?>" >
+          <input type="email" class="form-control" name="email" value="<?php echo ($movement->email ?? ($movement->p_email ?? ''));?>" >
         </div>
 
         <div class="form-group">

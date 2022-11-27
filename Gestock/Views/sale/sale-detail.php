@@ -232,25 +232,25 @@ ob_start();
 </html>
 
 <?php
+//Guardar contenido html en variable
 $html=ob_get_clean();
-//echo $html;
+
 
 require_once 'Assets/libreria/dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
-$options = $dompdf->getOptions();
-$options->set(array('isRemoteEnabled' => true));
-$dompdf->setOptions($options);
+//opciones para permitir que obtenga el html css y mostrar en una lista
+$options = $dompdf->getOptions();                   //recuperar opcion
+$options->set(array('isRemoteEnabled' => true));    //activar opción
+$dompdf->setOptions($options);                      //pasarlo al objeto dompdf
 
+//cargamos el contenido html
 $dompdf->loadHtml($html);
+
 $dompdf->setPaper('letter');
-//$dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 
-//$pdf_enviar = $dompdf->outputHtml();
-
-$dompdf->stream("movimiento_$movement->ticket_number.pdf", array("Attachment" => true));
-
-
+// Enviamos el fichero PDF al navegador.
+    $dompdf->stream("movimiento_$movement->ticket_number.pdf", array("Attachment" => true));
 ?>

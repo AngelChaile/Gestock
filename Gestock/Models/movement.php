@@ -92,6 +92,7 @@ class Movement
         $file_size      =        $_FILES['my_file']['size'];
         $file_type      =        $_FILES['my_file']['type'];
 
+        //Leer el archivo y codificar el contenido para armar el cuerpo del mail
         $handle         = fopen($file_tmp_name, "r");
         $content        = fread($handle, $file_size);
         fclose($handle);
@@ -108,7 +109,7 @@ class Movement
         //Texto Plano
         $body           = "--$boundary\r\n";
         $body          .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
-        $body          .= "Content-Transfer-Encoding: base 64\r\n\r\n";
+        $body          .= "Content-Transfer-Encoding: base64\r\n\r\n";
         $body          .= chunk_split(base64_encode($message));
 
         //Adjunto
@@ -116,20 +117,21 @@ class Movement
         $body          .="Content-Type: $file_type; name=".$file_name."\r\n";
         $body          .="Content-Disposition: attachment; filename=".$file_name."\r\n";
         $body          .="Content-Transfer-Encoding: base64\r\n";
-        $body          .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
+        $body          .="X-Attachment-Id: ".rand(1000,99999)."\r\n\r\n";
         $body          .= $encoded_content;
 
         $subject        = "PDF-Movimientos Gestock"; 
 
-        //Enviando el email
+        //Enviando el mail
         $sentMail = mail($email, $subject, $body, $headers);
         if($sentMail){
-            echo"<p style='color:green; text-align: center; margin-top: 100px;'
-                Formulario enviado, revisar el Email</center></p>";
+            echo"<p style='color:green; text-align: center; margin-top: 100px;'>
+                Formulario enviado, revisar el Email.</center></p>";
         }else {
             echo "<h2> Se produjo un herror y su pedido no pudo ser enviado</h2>";
         }
 
     }
+    
 }
 ?>

@@ -40,4 +40,5 @@ class MovementController {
     public function EnviarPDF(){
         $this->model->EnviarOne();
     }
+
 }
