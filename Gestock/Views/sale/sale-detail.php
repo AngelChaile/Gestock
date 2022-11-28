@@ -252,5 +252,5 @@ $dompdf->setPaper('letter');
 $dompdf->render();
 
 // Enviamos el fichero PDF al navegador.
-    $dompdf->stream("movimiento_$movement->ticket_number.pdf", array("Attachment" => true));
+$dompdf->stream("tiquet_$movement->customer_name.pdf", array("Attachment" => true));
 ?>

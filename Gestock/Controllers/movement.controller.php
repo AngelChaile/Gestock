@@ -28,7 +28,6 @@ class MovementController {
     }
 
     public function FormPDF(){
-        //$_SESSION['Errormessege'] = $pdf_enviar;
         $movement = $this->model->FindById($_REQUEST["movement"]);
         if(!$movement) return;
 

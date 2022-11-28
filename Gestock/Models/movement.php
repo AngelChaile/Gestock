@@ -1,4 +1,7 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 class Movement
 {
@@ -77,60 +80,58 @@ class Movement
         }
     }
 
-    public function EnviarOne(){
-        //capturo los datos
-        $email          = $_REQUEST["email"];
-        $nombreCompleto = $_REQUEST["nombre"];
+    public function EnviarOne()
+    {
+        require 'Assets/PHPMailer/Exception.php';
+        require 'Assets/PHPMailer/PHPMailer.php';
+        require 'Assets/PHPMailer/SMTP.php';
+        //Se instancia un objeto de la clase PHPMailer
+	    $mail = new PHPMailer(true);
+        
+        //Declaración de variables para almacenar los datos ingresados por el usuario en cada input del formulario. Recordar que se accede por el "name" del input.
+        
+        $nombreCompleto = $_POST['nombre'];
+        $email          = $_POST['email'];
+        $comentario     = $_POST['comentario'];
+        $pdf            = $_FILES['my_file'];
+        
+        try {
+            //Configuración del servidor
+            $mail->SMTPDebug = 0; //Se habilita la depuración, si se utiliza un servidor local colocar $mail->SMTPDebug = 0;
+            $mail->isSMTP();       //Se utiliza el protocolo SMTP
+            $mail->Host       = 'smtp.gmail.com';  //Colocar aquí el servidor de correo a utilizar, en el ejemplo smtp de gmail
+            $mail->SMTPAuth   = true;     //Se habilita la autenticación smtp
+            $mail->Username   = 'angelchaile90@gmail.com'; //Colocar aquí una dirección de correo valida, debe pertenecer al servidor indicado arriba
+            $mail->Password   = 'hlywotyvwogdkqpw'; //Colocar aquí la contraseña
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Habilita el cifrado TLS; se recomienda `PHPMailer::ENCRYPTION_SMTPS` 
+            $mail->Port       = 587;                                    //Número del puerto utilizado
 
-        //construyo el cuerpo del mensaje
-        $message        = "Nombre: " . $nombreCompleto . "\n";
-        $message        = $message . "Email: " . $email . "\n";
+        
+            $mail->setFrom('angelchaile90@gmail.com', 'Gestock'); //Desde donde se envía el mail, el nombre es opcional
+            $mail->addAddress($email, $nombreCompleto);     //A quién se le envía el mail, el nombre es opcional
+            //$mail->addAddress('ellen@example.com');  //información opcional
+            //$mail->addReplyTo('info@example.com', 'Information');
+            //$mail->addCC('cc@example.com');
+            //$mail->addBCC('bcc@example.com');
 
-        //obtener datos del archivo subido
-        $file_tmp_name  =        $_FILES['my_file']['tmp_name'];
-        $file_name      =        $_FILES['my_file']['name'];
-        $file_size      =        $_FILES['my_file']['size'];
-        $file_type      =        $_FILES['my_file']['type'];
+            //Las siguiente líneas se utilizan si se desea enviar archivos
+            $mail->addAttachment($pdf['tmp_name'], $pdf['name']/*'/var/tmp/file.tar.gz'*/);         //Agrega archivos adjuntos
+            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    
 
-        //Leer el archivo y codificar el contenido para armar el cuerpo del mail
-        $handle         = fopen($file_tmp_name, "r");
-        $content        = fread($handle, $file_size);
-        fclose($handle);
-        $encoded_content = chunk_split(base64_encode($content));
+            //Contenido
+            $mail->isHTML(true);                     //Si se envía con formato HTML
+            $mail->Subject = 'Hola '.$nombreCompleto.' aqui tiene su PDF con los movimientos';  //Asunto del mensaje
+            $mail->Body    = "<p style='color:blue; text-align: center; margin-top: 100px;'>
+                                Muchas Gracias por todo!<br> Equipo Gestock.</center></p>"; //Mensaje a enviar
+        
 
-        $boundary = md5("pera");
-
-        //Encabezados
-        $headers        = "MIME-Version: 1.0\r\n";
-        $headers       .= "From:".$email."\r\n"; 
-        $headers       .= "Reply-To: ".$email."" . "\r\n";
-        $headers       .= "Content-Type: multipart/mixed; boundary = $boundary\r\n\r\n";
-
-        //Texto Plano
-        $body           = "--$boundary\r\n";
-        $body          .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
-        $body          .= "Content-Transfer-Encoding: base64\r\n\r\n";
-        $body          .= chunk_split(base64_encode($message));
-
-        //Adjunto
-        $body          .= "--$boundary\r\n";
-        $body          .="Content-Type: $file_type; name=".$file_name."\r\n";
-        $body          .="Content-Disposition: attachment; filename=".$file_name."\r\n";
-        $body          .="Content-Transfer-Encoding: base64\r\n";
-        $body          .="X-Attachment-Id: ".rand(1000,99999)."\r\n\r\n";
-        $body          .= $encoded_content;
-
-        $subject        = "PDF-Movimientos Gestock"; 
-
-        //Enviando el mail
-        $sentMail = mail($email, $subject, $body, $headers);
-        if($sentMail){
-            echo"<p style='color:green; text-align: center; margin-top: 100px;'>
-                Formulario enviado, revisar el Email.</center></p>";
-        }else {
-            echo "<h2> Se produjo un herror y su pedido no pudo ser enviado</h2>";
+            $mail->send(); //Se envía el mail
+            echo "<p style='color:green; text-align: center; margin-top: 100px;'>
+            Correo enviado exitosamente</center></p>"; //Fin del try
+            echo "<br><center><input type=\"button\" onclick=\"location.href='?c=sale&a=Mostrar'\" value=\"Volver\"></center></button>";
+        } catch (Exception $e) {
+            echo "Error, el mensaje no se envió: {$mail->ErrorInfo}"; //Si hay algún error
         }
-
     }
     
 }
