@@ -251,10 +251,10 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('letter');
 $dompdf->render();
 
-var_dump($dompdf->output());
+//var_dump($dompdf->output());
 
 // Enviamos el fichero PDF al navegador.
-//$dompdf->stream("tiquet_$movement->customer_name.pdf", array("Attachment" => false));
+$dompdf->stream("tiquet_$movement->customer_name.pdf", array("Attachment" => false));
 /*$dompdf->outputHtml();
 
 var_dump($dompdf);
