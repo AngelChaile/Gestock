@@ -543,6 +543,8 @@ class Ticket
             throw new ConfirmMovementException("Error al confirmar el movimiento - " . $error, 51, $e);
         }
 
+        $ticket->movementId = $movementId;
+
         return $ticket;
     }
 }

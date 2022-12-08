@@ -166,6 +166,4 @@ function ProcesarVenta() {
         echo $e->getMessage();
         exit;
     }
-
-    exit;
 }

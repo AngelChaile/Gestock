@@ -1,4 +1,7 @@
-<?php include_once "Controllers/sale.controller.php"; ?>
+<?php include_once "Controllers/movement.controller.php"; ?>
+ 
+ <?php include_once "Controllers/sale.controller.php"; ?>
+
 <h3 class="page-header">Nuevo Movimiento</h3>
 
 <?php echo isset($_SESSION['alert']) ? $_SESSION['alert'] : ''; unset($_SESSION['alert']);
@@ -112,7 +115,7 @@
                     <label>Acciones</label>
                     <div id="acciones_venta" class="form-group">
                         <a href="#" class="btn btn-danger" id="btn_anular_venta">Anular</a>
-                        <a href="#" class="btn btn-primary"  id="btn_facturar_venta"><i class="fas fa-save"></i> Generar Venta</a>
+                        <a href="?c=movement&a=detail&movement=<?php echo $r->id_movement; ?>" class="btn btn-primary"  id="btn_facturar_venta"><i class="fas fa-save"></i> Generar Venta</a>
                     </div>
                 </div>
             </div>

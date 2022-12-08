@@ -80,7 +80,7 @@ class Movement
         }
     }
 
-    public function EnviarOne()
+    public static function EnviarOne($nombre, $email, $comentario, $pdf)
     {
         require 'Assets/PHPMailer/Exception.php';
         require 'Assets/PHPMailer/PHPMailer.php';
@@ -90,11 +90,13 @@ class Movement
         
         //Declaración de variables para almacenar los datos ingresados por el usuario en cada input del formulario. Recordar que se accede por el "name" del input.
         
-        $nombreCompleto = $_POST['nombre'];
+        /*$nombreCompleto = $_POST['nombre'];
         $email          = $_POST['email'];
         $comentario     = $_POST['comentario'];
-        $pdf            = $_FILES['my_file'];
-        
+        $pdf            = $_FILES['my_file'];*/
+
+        $nombreCompleto = $nombre;
+
         try {
             //Configuración del servidor
             $mail->SMTPDebug = 0; //Se habilita la depuración, si se utiliza un servidor local colocar $mail->SMTPDebug = 0;
@@ -115,7 +117,8 @@ class Movement
             //$mail->addBCC('bcc@example.com');
 
             //Las siguiente líneas se utilizan si se desea enviar archivos
-            $mail->addAttachment($pdf['tmp_name'], $pdf['name']/*'/var/tmp/file.tar.gz'*/);         //Agrega archivos adjuntos
+            //$mail->addAttachment($pdf['tmp_name'], $pdf['name']/*'/var/tmp/file.tar.gz'*/);         //Agrega archivos adjuntos
+            $mail->addStringAttachment($pdf, 'sarasa.pdf', PHPMailer::ENCODING_BASE64,'application/pdf');
             // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    
 
             //Contenido
@@ -126,11 +129,8 @@ class Movement
         
 
             $mail->send(); //Se envía el mail
-            echo "<p style='color:green; text-align: center; margin-top: 100px;'>
-            Correo enviado exitosamente</center></p>"; //Fin del try
-            echo "<br><center><input type=\"button\" onclick=\"location.href='?c=sale&a=Mostrar'\" value=\"Volver\"></center></button>";
         } catch (Exception $e) {
-            echo "Error, el mensaje no se envió: {$mail->ErrorInfo}"; //Si hay algún error
+            throw new InvalidQuantityException("Ocurrió un error al enviar el email", 100, new Exception(""));
         }
     }
     

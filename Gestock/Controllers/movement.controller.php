@@ -18,13 +18,21 @@ class MovementController {
     public function Detail() {
         $_SESSION['title'] = "Gestock-Movimiento";
 
-        $movement = $this->model->FindById($_REQUEST["movement"]);
+        $movement = $this->DetailWithoutRedirect($_REQUEST["movement"]);
 
         if(!$movement) return;
 
         //require_once 'Views/includes/header.php';
         require_once 'Views/sale/sale-detail.php';
         require_once 'Views/includes/footer.php';
+    }
+
+
+    public function DetailWithoutRedirect($movementId) {
+        $movement = $this->model->FindById($movementId);
+        if(!$movement) return;
+        
+        return $movement;
     }
 
     public function FormPDF(){
