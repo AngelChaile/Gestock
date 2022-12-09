@@ -87,7 +87,7 @@ class Movement
         require 'Assets/PHPMailer/SMTP.php';
         //Se instancia un objeto de la clase PHPMailer
 	    $mail = new PHPMailer(true);
-        
+    
         //Declaración de variables para almacenar los datos ingresados por el usuario en cada input del formulario. Recordar que se accede por el "name" del input.
         
         /*$nombreCompleto = $_POST['nombre'];
@@ -118,7 +118,7 @@ class Movement
 
             //Las siguiente líneas se utilizan si se desea enviar archivos
             //$mail->addAttachment($pdf['tmp_name'], $pdf['name']/*'/var/tmp/file.tar.gz'*/);         //Agrega archivos adjuntos
-            $mail->addStringAttachment($pdf, 'sarasa.pdf', PHPMailer::ENCODING_BASE64,'application/pdf');
+            $mail->addStringAttachment($pdf, "Tiquet$nombreCompleto.pdf", PHPMailer::ENCODING_BASE64,'application/pdf');
             // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    
 
             //Contenido

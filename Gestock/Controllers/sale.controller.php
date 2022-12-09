@@ -210,7 +210,7 @@ class SaleController {
         $dompdf->render();
 
         $name = $movement->customer_name ?? ($movement->company_name ?? '');
-        $email = "jsosacolman@gmail.com"; // $movement->p_email;
+        $email = $movement->email ?? ($movement->p_email ?? '');
         $comentario = "Esto es un comentario";
         Movement::EnviarOne($name, $email, $comentario, $dompdf->output());
 
@@ -277,7 +277,7 @@ class SaleController {
             '        #lista2 li {' .
             '            display:inline;' .
             '            padding-left:1px;' .
-            '            padding-right:35%;' .
+            '            padding-right:28%;' .
             '        }  ' .
             '        #lista3 li {' .
             '            display:inline;' .
@@ -330,10 +330,10 @@ class SaleController {
             '    </ul>' .
             '    <ul id="lista1">' .
             '        <li>' .
-            '        <b>Tel: </b><?php echo ($movement->cu_tel_number ?? ($movement->prv_tel_number ?? \'\'));?>' .
+            '        <b>Tel: </b> ' . ($movement->cu_tel_number ?? ($movement->prv_tel_number ?? '')) .
             '        </li>' .
             '        <li id="email">' .
-            '        <b>Email: </b><?php echo ($movement->email ?? ($movement->p_email ?? \'\'));?>' .
+            '        <b>Email: </b> ' . ($movement->email ?? ($movement->p_email ?? '')) .
             '        </li>' .
             '    </ul>' .
             '<br>' .
@@ -341,7 +341,7 @@ class SaleController {
             '<h2>Datos de la Empresa</h2>' .
             '    <ul id="lista2">' .
             '        <li>' .
-            '        Número:<span class="px-3"><?php echo $movement->ticket_number;?></span>' .
+            '        Número:<span class="px-3"> ' . $movement->ticket_number . '</span>' .
             '        </li>' .
             '        <li>' .
             '        Fecha: <span class="px-3">' . $this->GetDateWithFormatDMY($movement->date) . '</span>' .
@@ -349,25 +349,18 @@ class SaleController {
             '    </ul>' .
             '    <ul id="lista3">' .
             '        <li>' .
-            '        Hora: <span class="px-3"><?php' .
-            '                    try {' .
-            '                        $date = new DateTime($movement->date);' .
-            '                        echo $date->format(\'H:i:s\');' .
-            '                    } catch (Exception $e) {' .
-            '                        echo "";' .
-            '                    }' .
-            '                    ?></span>' .
+            '        Hora: <span class="px-3">' . $this->ChangeTimeFormat($movement->date) .'</span>' .
             '        </li>' .
             '        <li>' .
-            '        Tipo: <span class="px-3"><?php echo $movement->m_description;?></span>' .
+            '        Tipo: <span class="px-3">' . $movement->m_description . '</span>' .
             '        </li>' .
             '    </ul>' .
             '    <ul id="lista4">' .
             '        <li>' .
-            '        Atendido por: <span class="px-3"><?php echo $movement->user_name;?></span>' .
+            '        Atendido por: <span class="px-3">' . $movement->user_name . '</span>' .
             '        </li>  ' .
             '        <li>' .
-            '        Razón Social: <span><?php echo $_SESSION[\'infoCompany\']->company_name; ?></span>' .
+            '        Razón Social: <span>' . $_SESSION['infoCompany']->company_name. '</span>' .
             '        </li>' .
             '    </ul>' .
             '    <ul id="lista5">' .
@@ -436,6 +429,15 @@ class SaleController {
         }
 
         return $body;
+    }
+
+    private function ChangeTimeFormat($date){
+        try {
+                $date = new DateTime($date);
+                return $date->format('H:i:s');
+            } catch (Exception $e) {
+                return "";
+            }
     }
     
 }
