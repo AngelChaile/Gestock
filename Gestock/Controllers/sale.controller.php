@@ -277,7 +277,7 @@ class SaleController {
             '        #lista2 li {' .
             '            display:inline;' .
             '            padding-left:1px;' .
-            '            padding-right:28%;' .
+            '            padding-right:30%;' .
             '        }  ' .
             '        #lista3 li {' .
             '            display:inline;' .

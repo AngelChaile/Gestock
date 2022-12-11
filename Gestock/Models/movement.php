@@ -80,20 +80,56 @@ class Movement
         }
     }
 
-    public static function EnviarOne($nombre, $email, $comentario, $pdf)
-    {
+    public function EnviarArchivo(){
         require 'Assets/PHPMailer/Exception.php';
         require 'Assets/PHPMailer/PHPMailer.php';
         require 'Assets/PHPMailer/SMTP.php';
         //Se instancia un objeto de la clase PHPMailer
 	    $mail = new PHPMailer(true);
-    
-        //Declaración de variables para almacenar los datos ingresados por el usuario en cada input del formulario. Recordar que se accede por el "name" del input.
         
-        /*$nombreCompleto = $_POST['nombre'];
+        $nombreCompleto = $_POST['nombre'];
         $email          = $_POST['email'];
         $comentario     = $_POST['comentario'];
-        $pdf            = $_FILES['my_file'];*/
+        $pdf            = $_FILES['my_file'];
+        
+        try {
+            //Configuración del servidor
+            $mail->SMTPDebug = 0; //Se habilita la depuración, si se utiliza un servidor local colocar $mail->SMTPDebug = 0;
+            $mail->isSMTP();       //Se utiliza el protocolo SMTP
+            $mail->Host       = 'smtp.gmail.com';  //Colocar aquí el servidor de correo a utilizar, en el ejemplo smtp de gmail
+            $mail->SMTPAuth   = true;     //Se habilita la autenticación smtp
+            $mail->Username   = 'angelchaile90@gmail.com'; //Colocar aquí una dirección de correo valida, debe pertenecer al servidor indicado arriba
+            $mail->Password   = 'hlywotyvwogdkqpw'; //Colocar aquí la contraseña
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Habilita el cifrado TLS; se recomienda `PHPMailer::ENCRYPTION_SMTPS` 
+            $mail->Port       = 587;                                    //Número del puerto utilizado
+
+        
+            $mail->setFrom('angelchaile90@gmail.com', 'Gestock'); //Desde donde se envía el mail, el nombre es opcional
+            $mail->addAddress($email, $nombreCompleto);     //A quién se le envía el mail, el nombre es opcional
+            $mail->addAttachment($pdf['tmp_name'], $pdf['name']);         //Agrega archivos adjuntos
+            //Contenido
+            $mail->isHTML(true);                     //Si se envía con formato HTML
+            $mail->Subject = 'Hola '.$nombreCompleto.' aqui tiene su PDF con los movimientos';  //Asunto del mensaje
+            $mail->Body    = "<p style='color:blue; text-align: center; margin-top: 100px;'>
+                                Muchas Gracias por todo!<br> Equipo Gestock.</center></p>"; //Mensaje a enviar
+        
+
+            $mail->send(); //Se envía el mail
+            echo "<p style='color:green; text-align: center; margin-top: 100px;'>
+            Correo enviado exitosamente</center></p>"; //Fin del try
+            echo "<br><center><input type=\"button\" onclick=\"location.href='?c=sale&a=Mostrar'\" value=\"Volver\"></center></button>";
+        } catch (Exception $e) {
+            echo "Error, el mensaje no se envió: {$mail->ErrorInfo}"; //Si hay algún error
+        }
+    }
+
+    public static function EnviarOne($nombre, $email, $comentario, $pdf)
+    {
+        require 'Assets/PHPMailer/Exception.php';
+        require 'Assets/PHPMailer/PHPMailer.php';
+        require 'Assets/PHPMailer/SMTP.php';
+
+	    $mail = new PHPMailer(true);
 
         $nombreCompleto = $nombre;
 
@@ -111,15 +147,7 @@ class Movement
         
             $mail->setFrom('angelchaile90@gmail.com', 'Gestock'); //Desde donde se envía el mail, el nombre es opcional
             $mail->addAddress($email, $nombreCompleto);     //A quién se le envía el mail, el nombre es opcional
-            //$mail->addAddress('ellen@example.com');  //información opcional
-            //$mail->addReplyTo('info@example.com', 'Information');
-            //$mail->addCC('cc@example.com');
-            //$mail->addBCC('bcc@example.com');
-
-            //Las siguiente líneas se utilizan si se desea enviar archivos
-            //$mail->addAttachment($pdf['tmp_name'], $pdf['name']/*'/var/tmp/file.tar.gz'*/);         //Agrega archivos adjuntos
             $mail->addStringAttachment($pdf, "Tiquet$nombreCompleto.pdf", PHPMailer::ENCODING_BASE64,'application/pdf');
-            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    
 
             //Contenido
             $mail->isHTML(true);                     //Si se envía con formato HTML
@@ -127,7 +155,6 @@ class Movement
             $mail->Body    = "<p style='color:blue; text-align: center; margin-top: 100px;'>
                                 Muchas Gracias por todo!<br> Equipo Gestock.</center></p>"; //Mensaje a enviar
         
-
             $mail->send(); //Se envía el mail
         } catch (Exception $e) {
             throw new InvalidQuantityException("Ocurrió un error al enviar el email", 100, new Exception(""));

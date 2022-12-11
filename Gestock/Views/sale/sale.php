@@ -115,7 +115,7 @@
                     <label>Acciones</label>
                     <div id="acciones_venta" class="form-group">
                         <a href="#" class="btn btn-danger" id="btn_anular_venta">Anular</a>
-                        <a href="?c=movement&a=detail&movement=<?php echo $r->id_movement; ?>" class="btn btn-primary"  id="btn_facturar_venta"><i class="fas fa-save"></i> Generar Venta</a>
+                        <a href="#" class="btn btn-primary"  id="btn_facturar_venta"><i class="fas fa-save"></i> Generar Venta</a>
                     </div>
                 </div>
             </div>

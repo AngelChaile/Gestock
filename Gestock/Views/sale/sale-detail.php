@@ -73,7 +73,7 @@ ob_start();
         #lista2 li {
              display:inline;
              padding-left:1px;
-             padding-right:35%;
+             padding-right:30%;
         }  
         #lista3 li {
              display:inline;
@@ -251,15 +251,6 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('letter');
 $dompdf->render();
 
-//var_dump($dompdf->output());
-
 // Enviamos el fichero PDF al navegador.
 $dompdf->stream("tiquet_$movement->customer_name.pdf", array("Attachment" => false));
-/*$dompdf->outputHtml();
-
-var_dump($dompdf);
-exit;
-   /*{
-        return $this->dom->saveHTML();
-    }*/
 ?>
