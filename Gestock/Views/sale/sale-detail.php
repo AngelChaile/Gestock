@@ -252,5 +252,5 @@ $dompdf->setPaper('letter');
 $dompdf->render();
 
 // Enviamos el fichero PDF al navegador.
-$dompdf->stream("tiquet_$movement->customer_name.pdf", array("Attachment" => false));
+$dompdf->stream("tiquet_$movement->customer_name.pdf", array("Attachment" => true));
 ?>
