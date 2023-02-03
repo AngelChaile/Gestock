@@ -1,0 +1,36 @@
+.my-card:hover{
+     transform: scale(1.05);
+     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+     opacity: 1.0;
+}
+
+.margin-botton-20 {
+     margin-bottom: 20px;
+}
+
+.card-width-14 {
+     width: 14rem;
+}
+
+.fa-check-circle {
+     color: green !important;
+}
+
+.fa-lightbulb {
+     color: orange !important;
+}
+
+.fa-exclamation-triangle {
+     color: red !important;
+}
+
+.typeahead {
+     border: 2px solid #FFF;
+     border-radius: 4px;
+     padding: 8px 12px;
+     max-width: 300px;
+     box-sizing: border-box;
+     width: 100%;
+     background: rgba(66, 52, 52, 0.5);
+     color: #FFF;
+}
