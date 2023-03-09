@@ -1,3 +1,4 @@
 #Practica Profesionalizantes
-examen final
+Gestor de Movimiento y Stock 
+MVC con PHP
 
